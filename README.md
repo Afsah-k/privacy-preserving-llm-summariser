@@ -122,3 +122,17 @@ privacy-preserving-llm-summariser/
 
 └── .gitignore
 
+
+
+---
+
+## 🔽 3. Add “Privacy Design” (VERY important for CV)
+
+```markdown
+## 🔐 Privacy Design
+
+- All processing happens **locally**
+- No external APIs are used
+- No sensitive data leaves the machine
+- Audit logs provide full traceability of redactions
+
