@@ -1,128 +1,80 @@
-**Privacy-Preserving LLM Summariser**
+# Privacy-Preserving LLM Summariser
 
-\*\*Python | spaCy | Llama 3 / Ollama | NLP | GDPR\*\*
-
-
-
-
+**Python | spaCy | Llama 3 (Ollama) | NLP | GDPR**
 
 A local, GDPR-aligned pipeline that detects and redacts PII from sensitive text before summarising it with a local LLM — no data ever leaves your machine.
 
 Built for healthcare-adjacent and regulated environments where patient or customer data must never be exposed to external APIs.
 
+---
 
+## 🚀 How It Works
 
-**How It Works**
+```
+Raw Text → PII Scrubber → Anonymised Text → Local LLM → Summary
+                          ↓
+                    Audit Log (JSON)
+```
 
-Raw Text → \[PII Scrubber] → Anonymised Text → \[Local LLaMA 3] → Summary
+---
 
-&#x20;               ↓
+## 🔍 Pipeline Stages
 
-&#x20;         Audit Log (JSON)
+* **Regex Pass** — detects structured PII (NHS number, NI number, DOB, postcode, phone, email)
+* **NER Pass (spaCy)** — detects unstructured PII (names, organisations, locations)
+* **LLM Summarisation** — uses local Llama 3 via Ollama
 
+---
 
+## ✨ Features
 
-*The pipeline runs in three stages:*
+* Regex + NER-based PII detection
+* Two-stage scrubbing architecture
+* JSON audit logging (GDPR traceability)
+* Fully local processing (no external APIs)
+* Structured summarisation:
 
+  * Clinical summary (3–5 sentences)
+  * Key bullet points
+  * Follow-up actions
 
+---
 
-*Regex Pass* — catches structured PII: NHS numbers, NI numbers, dates of birth, postcodes, phone numbers, emails
+## 📌 Example PII Handled
 
-*NER Pass* — uses spaCy to catch unstructured PII: names, organisations, locations, facilities
+* NHS Number
+* Date of Birth
+* UK Postcode
+* Phone Number
+* Email Address
+* National Insurance Number
+* Person names
+* Organisations
+* Locations
 
-*LLM Summarisation* — sends only the anonymised text to a locally-running LLaMA 3 model via Ollama
+---
 
+## 🧠 Tech Stack
 
+* Python
+* spaCy (NER)
+* Requests
+* Ollama (local LLM runtime)
+* Llama 3
 
-**Features**
+---
 
+## 📂 Project Structure
 
-
-\- Detects and redacts sensitive data using:
-
-&#x20; - Regex-based PII detection
-
-&#x20; - spaCy Named Entity Recognition (NER)
-
-\- Two-stage PII scrubbing architecture (Regex + NER)
-
-\- Creates audit-ready redaction logs in JSON format
-
-\- Sends only anonymised content to a local LLM
-
-\- Structured summarisation output:
-
-&#x20; - Clinical summary (3–5 sentences)
-
-&#x20; - Key bullet points
-
-&#x20; - Follow-up actions
-
-\- Designed for privacy-sensitive and healthcare-adjacent environments
-
-\- GDPR-aware processing with traceability
-
-
-
-**Example PII handled**
-
-
-
-\- NHS Number
-
-\- Date of Birth
-
-\- UK Postcode
-
-\- Phone Number
-
-\- Email Address
-
-\- National Insurance Number
-
-\- Person names
-
-\- Organisations
-
-\- Locations
-
-
-
-**Tech Stack**
-
-
-
-\- Python
-
-\- spaCy (NER)
-
-\- Requests
-
-\- Ollama (Local LLM runtime)
-
-\- Llama 3
-
-
-
-**Project Structure**
-
-
-
-```bash
-
+```
 privacy-preserving-llm-summariser/
-
-│
-
 ├── main.py
-
 ├── requirements.txt
-
 ├── README.md
-
 └── .gitignore
+```
 
-**Setup Instructions**
+---
 
 ## ⚙️ Setup Instructions
 
@@ -131,51 +83,68 @@ privacy-preserving-llm-summariser/
 ```bash
 git clone https://github.com/afsah-k/privacy-preserving-llm-summariser.git
 cd privacy-preserving-llm-summariser
+```
 
-**Install dependencies**
+### 2. Install dependencies
+
+```bash
 pip install -r requirements.txt
+```
 
-**Download spaCy model**
+### 3. Download spaCy model
+
+```bash
 python -m spacy download en_core_web_sm
+```
 
-**Install & run Ollama**
+### 4. Install & run Ollama
+
 Download from: https://ollama.com
-Then run:
+
+```bash
 ollama serve
 ollama pull llama3
+```
 
+---
 
-**How to Run**
+## ▶️ How to Run
+
+```bash
 python main.py
+```
 
 The script will:
 
-Remove all PII from the input text
-Save an audit log (audit_log.json)
-Generate a clinical summary using a local LLM
+* Remove all PII from input text
+* Save an audit log (`audit_log.json`)
+* Generate a clinical summary using a local LLM
 
-**Privacy Design**
-- All processing happens **locally**
-- No external APIs are used
-- No sensitive data leaves the machine
-- Audit logs provide full traceability of redactions
+---
 
-**Example Output**
+## 🔐 Privacy Design
+
+* All processing happens locally
+* No external APIs are used
+* No sensitive data leaves the machine
+* Full audit trail of redactions
+
+---
+
+## 📌 Example Output
 
 **Input:**
 Patient details including name, NHS number, and medical notes
 
 **Output:**
-- Clean anonymised text
-- Structured clinical summary
-- JSON audit log of redactions
 
+* Clean anonymised text
+* Structured clinical summary
+* JSON audit log
+
+---
 
 ## 👨‍💻 Author
 
-Afsah Khan  
+Afsah Khan
 MSc Data Science – University of Essex
-=======
-
-
-
