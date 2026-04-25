@@ -122,3 +122,56 @@ privacy-preserving-llm-summariser/
 
 └── .gitignore
 
+**Setup Instructions**
+
+## ⚙️ Setup Instructions
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/afsah-k/privacy-preserving-llm-summariser.git
+cd privacy-preserving-llm-summariser
+
+**Install dependencies**
+pip install -r requirements.txt
+
+**Download spaCy model**
+python -m spacy download en_core_web_sm
+
+**Install & run Ollama**
+Download from: https://ollama.com
+Then run:
+ollama serve
+ollama pull llama3
+
+
+**How to Run**
+python main.py
+
+The script will:
+
+Remove all PII from the input text
+Save an audit log (audit_log.json)
+Generate a clinical summary using a local LLM
+
+**Privacy Design**
+- All processing happens **locally**
+- No external APIs are used
+- No sensitive data leaves the machine
+- Audit logs provide full traceability of redactions
+
+**Example Output**
+
+**Input:**
+Patient details including name, NHS number, and medical notes
+
+**Output:**
+- Clean anonymised text
+- Structured clinical summary
+- JSON audit log of redactions
+
+
+## 👨‍💻 Author
+
+Afsah Khan  
+MSc Data Science – University of Essex
